@@ -45,14 +45,14 @@ router.post("/", async (request, response) => {
 
 
 
-router.get("/:recipeId", async(request, response) => {
+router.get("/userId/:recipeId", async(request, response) => {
     
     const specificRecipe = await prisma.recipe.findMany({
         where: {
-            id: parseInt(request.params.recipeId),
+            id: parseInt(request.params.recipeId), //dynamic 
         },
         user: {
-            equals: parseInt(request.params.userId)
+            equals: parseInt(request.params.userId) //dynamic 
         }
     })
 })
