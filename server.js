@@ -1,7 +1,8 @@
 import express from "express";
-import recipeRouter from "..routes/recipe.js"
+import recipeRouter from "./routes/recipe.js";
 
-export default function createServer(){
+
+export default async function createServer(){
     const app = express();
 
     app.use(express.json());

@@ -1,9 +1,10 @@
 import express from "express";
 import { prisma } from "../db/index.js"
 
-const router = express.Router();
+export default function recipeRouter(){
+    const router = express.Router();
 
-//todo
+
 router.get("/", async (request, response) => {
     //Send back all recipe
 
@@ -38,6 +39,7 @@ router.post("/", async (request, response) => {
     response.status(201).json({
         success: true
     });
-})
+});
 
-export default router;
+return router;
+}
