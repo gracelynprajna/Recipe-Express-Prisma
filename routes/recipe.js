@@ -47,12 +47,12 @@ router.post("/", async (request, response) => {
 
 router.get("/:recipeId", async(request, response) => {
     
-    const specificRecipe = await prisma.recipe.findUnique({
+    const specificRecipe = await prisma.recipe.findMany({
         where: {
-            id: request.params.recipeId
+            id: parseInt(request.params.recipeId),
         },
         user: {
-            id
+            equals: parseInt(request.params.userId)
         }
     })
 })
