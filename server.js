@@ -8,9 +8,9 @@ export default async function createServer(){
 
     app.use(express.json());
 
-    app.use("/user", userRouter)
+    app.use("/user", userRouter())
 
-    app.use("/recipe", recipeRouter)
+    app.use("/recipe", recipeRouter())
 
     return app;
 }

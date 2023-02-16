@@ -32,6 +32,7 @@ router.post("/", async (request, response) => {
     const newRecipe = await prisma.recipe.create({
         data: {
             name: request.body.recipe,
+            description: request.body.description,
             userId: 1
         }
     });
@@ -41,6 +42,25 @@ router.post("/", async (request, response) => {
         success: true
     });
 });
+
+// router.get("/:id", async(request, response) => {
+
+//     const specificRecipe = await prisma.recipe.findUnique({
+//         where: {
+//             id
+//         },
+//         include: {
+//             user: true
+//         }
+//     });
+
+//     console.log(specificRecipe);
+//     response.status(200).json({
+//         success: true
+//     })
+// })
+
+
 
 return router;
 }

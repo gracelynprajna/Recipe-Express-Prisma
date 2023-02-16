@@ -20,7 +20,8 @@ model User {
 model Recipe {
   id Int @unique @default(autoincrement())
   name String @db.VarChar(255)
-  userId Int
+  description String @db.VarChar(255)
+  userId Int @unique
   user User @relation(fields: [userId], references: [id])
 
   @@index([userId])
