@@ -5,13 +5,14 @@ export default function recipeRouter(){
     const router = express.Router();
 
 
+
 router.get("/", async (request, response) => {
     //Send back all recipe
 
     //tells prisma to talk to database and find stuff
     const allRecipes = await prisma.recipe.findMany({
         where: {
-            userId: 1 //find todos where userid is 1
+            userId: 1 //find recipe where userid is 1
         },
         include: {
             user: true 
