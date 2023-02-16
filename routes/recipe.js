@@ -5,7 +5,7 @@ const router = express.Router();
 
 //todo
 router.get("/", async (request, response) => {
-    //Send back all todos
+    //Send back all recipe
 
     //tells prisma to talk to database and find stuff
     const allRecipes = await prisma.recipe.findMany({
@@ -25,7 +25,7 @@ router.get("/", async (request, response) => {
 })
 
 router.post("/", async (request, response) => {
-    //creates a todo
+    //creates a recipe
     
     const newRecipe = await prisma.recipe.create({
         data: {

@@ -1,5 +1,5 @@
 import express from "express";
-import todoRouter from "./routes/todo.js";
+import recipeRouter from "..routes/recipe.js"
 
 export default function createServer(){
     const app = express();
