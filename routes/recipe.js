@@ -4,7 +4,23 @@ import { prisma } from "../db/index.js"
 export default function recipeRouter(){
     const router = express.Router();
 
-
+//updates recipes 
+router.put("/:recipeId", async (request, response) => {
+    const addRecipe = await prisma.recipe.update({
+        where: {
+            id: parseInt(request.params.recipeId)
+        },
+        data: {
+            name: request.body.recipe,
+            description: request.body.description
+        }
+    });
+    //sends back response if it works 
+    response.status(200).json({
+        success: true, 
+        message: "recipe updated!"
+    });
+})
 
 router.get("/", async (request, response) => {
     //Send back all recipe
@@ -42,7 +58,6 @@ router.post("/", async (request, response) => {
         success: true
     });
 });
-
 
 
 router.get("/userId/:recipeId", async(request, response) => {
