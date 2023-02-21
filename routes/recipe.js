@@ -6,7 +6,7 @@ export default function recipeRouter(){
 
 //updates recipes 
 router.put("/:recipeId", async (request, response) => {
-    const addRecipe = await prisma.recipe.update({
+    const updateRecipe = await prisma.recipe.update({
         where: {
             id: parseInt(request.params.recipeId)
         },
@@ -20,6 +20,18 @@ router.put("/:recipeId", async (request, response) => {
         success: true, 
         message: "recipe updated!"
     });
+})
+
+router.delete("/:recipeId", async (request, response) => {
+    const deleteRecipe = await prisma.recipe.delete({
+        where: {
+            id: parseInt(request.params.recipeId)
+        }
+    });
+    response.status(200).json({
+        success: true, 
+        message: "recipe deleted!"
+    })
 })
 
 router.get("/", async (request, response) => {
