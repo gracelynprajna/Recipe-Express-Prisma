@@ -1,7 +1,10 @@
 import express from "express";
 import { prisma } from "../db/index.js";
 import jwt from "jsonwebtoken";
-import { argon2 } from "argon2";
+import  argon2  from "argon2";
+
+
+
 
 const router = express.Router(); 
 
@@ -56,51 +59,58 @@ router.post("/signup", async (request, response) => {
   });
 
 //login route
-router.post("/signup", async (request, response) => {
-    try{
+router.post("/login", async (req, res) => {
+
+    try {
   
       const foundUser = await prisma.user.findFirst({
         where: {
-          username: request.body.username
-        }
+          username: req.body.username,
+        },
       });
-      if(foundUser){
-        response.status(401).json({
-          success: false,
-          message: "User already exists"
-        });
-      } else {
-        try{
-          const hashedPassword = await argon2.hash(request.body.password);
   
-          const newUser = await prisma.user.create({
-            data: {
-              username: request.body.username,
-              password: hashedPassword
-            }
-          });
-          if (newUser){
-            response.status(201).json({
+      if (foundUser) {
+        try {
+          const verifyPassword = await argon2.verify(
+            foundUser.password,
+            req.body.password
+          );
+  
+          if (verifyPassword === true) {
+            const token = jwt.sign(
+              {
+                username: foundUser.username,
+                id: foundUser.id,
+              },
+              "thisisasecretkey"
+            );
+  
+            res.status(200).json({
               success: true,
-              message: "User successfully created!"
+              token,
             });
           } else {
-            response.status(500).json({
+            res.status(401).json({
               success: false,
-              message: "user was not created, something happened"
-            })
+              message: "wrong username or password",
+            });
           }
-        }catch(e){
-          response.status(500).json({
+        } catch (error) {
+          res.status(500).json({
             success: false,
-            message: "user was not created, something happened"
-        })
+            message: "something went wrong",
+          });
+        }
+      }else{
+        res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
       }
-    }
-  } catch(e){
-    response.status(500).json({
-      success: false,
-      message: "something went wrong"
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "something went wrong",
       });
     }
   });

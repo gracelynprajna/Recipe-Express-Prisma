@@ -41,6 +41,7 @@ router.get("/", async (request, response) => {
     const allRecipes = await prisma.recipe.findMany({
         where: {
             userId: 1 //find recipe where userid is 1
+            // request.user.id
         },
         include: {
             user: true 
@@ -49,7 +50,7 @@ router.get("/", async (request, response) => {
     
     //after that, it will send back a response
     response.status(200).json({
-        succes: true,
+        success: true,
         recipes: allRecipes
     });
 })
@@ -59,7 +60,7 @@ router.post("/", async (request, response) => {
     
     const newRecipe = await prisma.recipe.create({
         data: {
-            name: request.body.recipe,
+            name: request.body.name,
             description: request.body.description,
             userId: 1
         }
@@ -86,3 +87,7 @@ router.get("/userId/:recipeId", async(request, response) => {
 
 return router;
 }
+
+
+
+

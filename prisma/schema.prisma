@@ -11,6 +11,7 @@ datasource db {
   relationMode = "prisma"
 }
 
+
 model User {
  id Int @unique @default(autoincrement())
   username String @db.VarChar(255)
