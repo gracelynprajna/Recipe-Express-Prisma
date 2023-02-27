@@ -36,7 +36,7 @@ router.delete("/:recipeId", async (request, response) => {
 
 router.get("/", async (request, response) => {
     //Send back all recipe
-
+console.log(request.user)
     //tells prisma to talk to database and find stuff
     const allRecipes = await prisma.recipe.findMany({
         where: {
@@ -73,7 +73,7 @@ router.post("/", async (request, response) => {
 });
 
 
-router.get("/userId/:recipeId", async(request, response) => {
+router.get("/recipe/:recipeId", async(request, response) => {
     
     const specificRecipe = await prisma.recipe.findMany({
         where: {

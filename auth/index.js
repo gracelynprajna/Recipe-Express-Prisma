@@ -9,7 +9,7 @@ export default async function setupJWTStrategy(passport){
     }, function(payload, done){
         try{
             //no errors, just returning user data
-            return done(null, { username: payload.username, id: payload.id });
+            return done(null, { username: payload.username, id:payload.id });
         } catch(e){
             //it will return an error and not return user data
             return done(e, null);
